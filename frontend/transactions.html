@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Transactions | GP AI</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+</head><body data-page="transactions">
+<div class="app">
+<aside class="sidebar">
+ <div><div class="brand"><div class="brand-mark">GP</div><div><div class="brand-name">GP AI</div><div class="brand-sub">PERSONAL FINANCE OS</div></div></div>
+ <div class="side-label">Workspace</div><nav class="nav"><a href="index.html" data-page="dashboard"><i data-lucide="layout-dashboard"></i><span>Overview</span></a><a href="transactions.html" data-page="transactions"><i data-lucide="arrow-left-right"></i><span>Transactions</span></a><a href="budgets.html" data-page="budgets"><i data-lucide="chart-no-axes-combined"></i><span>Budgets</span></a><a href="advisor.html" data-page="advisor"><i data-lucide="sparkles"></i><span>Finance Advisor</span><span class="tag">RULES</span></a></nav>
+ <div class="side-label">Manage</div><nav class="nav"><a href="#" onclick="return false"><i data-lucide="settings-2"></i><span>Settings</span></a></nav></div>
+ <div class="side-bottom"><div class="profile"><div class="avatar">GP</div><div><strong>Personal account</strong><small>GP AI · Local workspace</small></div></div></div>
+</aside>
+<main class="main">
+ <header class="topbar"><div style="display:flex;align-items:center;gap:12px;min-width:0"><button class="mobile-menu" aria-label="Open menu"><i data-lucide="menu"></i></button><div class="search"><i data-lucide="search"></i><input id="global-search" placeholder="Search transactions..." /></div></div>
+ <div class="top-actions"><div class="engine"><span class="pulse"></span> LOCAL DATABASE</div><button class="btn add-transaction"><i data-lucide="plus"></i> Add transaction</button></div></header>
+ <section class="content">
+<div class="page-head"><div><div class="eyebrow">YOUR MONEY MOVEMENTS</div><h1>Transaction ledger</h1><p>Search, review and export your recorded income and expenses.</p></div><button class="btn add-transaction"><i data-lucide="plus"></i> New transaction</button></div>
+<div class="grid three-col" style="margin-bottom:16px"><div class="card"><div class="metric-label">Total inflow</div><div class="metric-value positive" id="inflow">—</div><div class="metric-foot">Money received</div></div><div class="card"><div class="metric-label">Total outflow</div><div class="metric-value negative" id="outflow">—</div><div class="metric-foot">Money spent</div></div><div class="card"><div class="metric-label">Net cashflow</div><div class="metric-value" id="net-flow">—</div><div class="metric-foot">Inflow less outflow</div></div></div>
+<div class="card table-card"><div class="table-toolbar"><div><div class="card-title">All transactions</div><div class="card-sub">Stored in the GP AI local database</div></div><div class="filter-row"><input id="ledger-filter" placeholder="Filter merchant or category..." style="width:210px"><button class="btn secondary" id="export-csv"><i data-lucide="download"></i> Export CSV</button></div></div><div class="table-wrap"><table><thead><tr><th>MERCHANT</th><th>CATEGORY</th><th>DATE</th><th>METHOD</th><th style="text-align:right">AMOUNT</th><th>ACTIONS</th></tr></thead><tbody id="all-rows"></tbody></table></div></div>
+</section>
+</main></div>
+<div class="modal-backdrop" id="transaction-modal"><div class="modal"><div class="modal-head"><div><div class="eyebrow">QUICK ENTRY</div><h2>Add a transaction</h2></div><button class="close close-modal" aria-label="Close">×</button></div>
+<form id="transaction-form">
+ <div class="field"><label for="tx-description">Description / Merchant</label><input id="tx-description" placeholder="e.g. Swiggy dinner" required></div>
+ <div class="field-grid"><div class="field"><label for="tx-amount">Amount (₹)</label><input id="tx-amount" type="number" min="0.01" step="0.01" placeholder="450.00" required></div><div class="field"><label for="tx-type">Type</label><select id="tx-type"><option>Expense</option><option>Income</option></select></div></div>
+ <div class="field-grid"><div class="field"><label for="tx-date">Date</label><input id="tx-date" type="date" required></div><div class="field"><label for="tx-method">Payment method</label><select id="tx-method"><option>UPI</option><option>Debit card</option><option>Credit card</option><option>Cash</option><option>Bank transfer</option></select></div></div>
+ <div class="field"><label for="tx-category">Category</label><select id="tx-category"><option>Auto-detect</option><option>Food & Dining</option><option>Transport</option><option>Shopping</option><option>Income</option><option>Entertainment</option><option>Groceries</option><option>Bills & Utilities</option><option>Healthcare</option><option>Education</option><option>Housing</option><option>Fitness</option><option>Other</option></select></div>
+ <p style="font-size:10px;color:var(--muted);margin:0 0 15px">✦ Auto-detect uses deterministic keyword rules; uncertain descriptions are categorized as Other.</p>
+ <button class="btn" type="submit" style="width:100%">Save transaction <i data-lucide="arrow-up-right"></i></button>
+</form></div></div><div id="toast" style="position:fixed;bottom:22px;right:22px;z-index:80;background:#17251c;border:1px solid #45d6a055;color:#caffd9;padding:12px 16px;border-radius:10px;font-size:11px;opacity:0;transform:translateY(10px);transition:.25s;pointer-events:none"></div>
+<style>#toast.show{opacity:1!important;transform:translateY(0)!important}</style>
+<script src="app.js"></script><script>if(window.lucide)lucide.createIcons();</script>
+</body></html>

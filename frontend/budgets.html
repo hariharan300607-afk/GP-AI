@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Budgets | GP AI</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+</head><body data-page="budgets">
+<div class="app">
+<aside class="sidebar">
+ <div><div class="brand"><div class="brand-mark">GP</div><div><div class="brand-name">GP AI</div><div class="brand-sub">PERSONAL FINANCE OS</div></div></div>
+ <div class="side-label">Workspace</div><nav class="nav"><a href="index.html" data-page="dashboard"><i data-lucide="layout-dashboard"></i><span>Overview</span></a><a href="transactions.html" data-page="transactions"><i data-lucide="arrow-left-right"></i><span>Transactions</span></a><a href="budgets.html" data-page="budgets"><i data-lucide="chart-no-axes-combined"></i><span>Budgets</span></a><a href="advisor.html" data-page="advisor"><i data-lucide="sparkles"></i><span>Finance Advisor</span><span class="tag">RULES</span></a></nav>
+ <div class="side-label">Manage</div><nav class="nav"><a href="#" onclick="return false"><i data-lucide="settings-2"></i><span>Settings</span></a></nav></div>
+ <div class="side-bottom"><div class="profile"><div class="avatar">GP</div><div><strong>Personal account</strong><small>GP AI · Local workspace</small></div></div></div>
+</aside>
+<main class="main">
+ <header class="topbar"><div style="display:flex;align-items:center;gap:12px;min-width:0"><button class="mobile-menu" aria-label="Open menu"><i data-lucide="menu"></i></button><div class="search"><i data-lucide="search"></i><input id="global-search" placeholder="Search transactions..." /></div></div>
+ <div class="top-actions"><div class="engine"><span class="pulse"></span> LOCAL DATABASE</div><button class="btn add-transaction"><i data-lucide="plus"></i> Add transaction</button></div></header>
+ <section class="content">
+<div class="page-head"><div><div class="eyebrow">SPEND WITH INTENTION</div><h1>Budgets & limits</h1><p>Keep everyday spending aligned with the priorities that matter.</p></div><button class="btn" type="button" id="create-budget"><i data-lucide="plus"></i> Create budget</button></div>
+<div class="card" style="margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap"><div><div class="metric-label">Monthly budget pool</div><div class="metric-value" id="budget-total">—</div><div class="metric-foot">Your saved monthly category limits</div></div><div style="text-align:right"><div class="metric-label">Spend in budgeted categories</div><div class="metric-value lime" id="budget-spent">—</div><div class="metric-foot">Remaining <strong id="budget-left" class="positive">—</strong></div></div></div>
+<div class="page-grid"><div class="card"><div class="card-head"><div><div class="card-title">Category budget tracker</div><div class="card-sub">Monthly progress from transactions stored in GP AI</div></div><span class="lime" style="font:10px var(--mono)">MONTHLY</span></div><div id="budget-list"></div></div><div class="card"><div class="card-head"><div><div class="card-title">Budgeting playbook</div><div class="card-sub">Small habits that make a difference</div></div><span class="metric-icon"><i data-lucide="lightbulb"></i></span></div><div class="budget-row"><strong style="font-size:12px">Start with essentials</strong><p class="card-sub">Set aside rent, bills and required payments before flexible spending.</p></div><div class="budget-row"><strong style="font-size:12px">Use realistic limits</strong><p class="card-sub">Base category budgets on actual spending, not an idealized month.</p></div><div class="budget-row"><strong style="font-size:12px">Review weekly</strong><p class="card-sub">A short weekly check-in helps you course-correct before month-end.</p></div><a href="advisor.html" class="btn secondary" style="width:100%;margin-top:8px">Discuss my budget <i data-lucide="arrow-up-right"></i></a></div></div>
+</section>
+</main></div>
+<div class="modal-backdrop" id="transaction-modal"><div class="modal"><div class="modal-head"><div><div class="eyebrow">QUICK ENTRY</div><h2>Add a transaction</h2></div><button class="close close-modal" aria-label="Close">×</button></div>
+<form id="transaction-form">
+ <div class="field"><label for="tx-description">Description / Merchant</label><input id="tx-description" placeholder="e.g. Swiggy dinner" required></div>
+ <div class="field-grid"><div class="field"><label for="tx-amount">Amount (₹)</label><input id="tx-amount" type="number" min="0.01" step="0.01" placeholder="450.00" required></div><div class="field"><label for="tx-type">Type</label><select id="tx-type"><option>Expense</option><option>Income</option></select></div></div>
+ <div class="field-grid"><div class="field"><label for="tx-date">Date</label><input id="tx-date" type="date" required></div><div class="field"><label for="tx-method">Payment method</label><select id="tx-method"><option>UPI</option><option>Debit card</option><option>Credit card</option><option>Cash</option><option>Bank transfer</option></select></div></div>
+ <div class="field"><label for="tx-category">Category</label><select id="tx-category"><option>Auto-detect</option><option>Food & Dining</option><option>Transport</option><option>Shopping</option><option>Income</option><option>Entertainment</option><option>Groceries</option><option>Bills & Utilities</option><option>Healthcare</option><option>Education</option><option>Housing</option><option>Fitness</option><option>Other</option></select></div>
+ <p style="font-size:10px;color:var(--muted);margin:0 0 15px">✦ Auto-detect uses deterministic keyword rules; uncertain descriptions are categorized as Other.</p>
+ <button class="btn" type="submit" style="width:100%">Save transaction <i data-lucide="arrow-up-right"></i></button>
+</form></div></div><div id="toast" style="position:fixed;bottom:22px;right:22px;z-index:80;background:#17251c;border:1px solid #45d6a055;color:#caffd9;padding:12px 16px;border-radius:10px;font-size:11px;opacity:0;transform:translateY(10px);transition:.25s;pointer-events:none"></div>
+<div class="modal-backdrop" id="budget-modal"><div class="modal"><div class="modal-head"><div><div class="eyebrow">MONTHLY PLAN</div><h2 id="budget-modal-title">Create or update a budget</h2></div><button class="close close-budget-modal" type="button" aria-label="Close">×</button></div>
+<form id="budget-form"><div class="field"><label for="budget-category">Category</label><select id="budget-category" required><option>Food & Dining</option><option>Transport</option><option>Shopping</option><option>Income</option><option>Entertainment</option><option>Groceries</option><option>Bills & Utilities</option><option>Healthcare</option><option>Education</option><option>Housing</option><option>Fitness</option><option>Other</option></select></div>
+<div class="field"><label for="budget-amount">Monthly limit (₹)</label><input id="budget-amount" type="number" min="0" step="0.01" placeholder="5000.00" required></div>
+<button class="btn" type="submit" style="width:100%">Save budget</button></form></div></div>
+<style>#toast.show{opacity:1!important;transform:translateY(0)!important}</style>
+<script src="app.js"></script><script>if(window.lucide)lucide.createIcons();</script>
+</body></html>
